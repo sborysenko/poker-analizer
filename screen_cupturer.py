@@ -37,11 +37,11 @@ def capture_screenshot(window_title):
 
             match library:
                 case 'mss':
-                    capture_screenshot_mss(bbox, counter)
+                    capture_screenshot_mss(bbox, f"{counter:08d}")
                 case 'pyautogui':
-                    capture_screenshot_pyautogui(bbox, counter)
+                    capture_screenshot_pyautogui(bbox, f"{counter:08d}")
                 case 'pillow':
-                    capture_screenshot_pillow(bbox, counter)
+                    capture_screenshot_pillow(bbox, f"{counter:08d}")
 
             counter += 1
             time.sleep(interval)
