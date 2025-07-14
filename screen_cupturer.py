@@ -8,7 +8,7 @@ import time
 
 from PIL import ImageGrab
 
-interval = 1  # seconds
+interval = 1/20  # 20 fps
 total_shots = 2
 folder = 'screenshots'
 subfolder = ''
