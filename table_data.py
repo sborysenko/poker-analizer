@@ -4,7 +4,7 @@
 #
 # User player area w = 132, h  = 170
 # Players positions and areas: w = 120, h = 146.
-# Players positions: A, B, C, D, E, F, G, H. Position A is for user Player. All other positions clockwise
+# Players positions: A, B, C, D, E, F, G, H, I. Position A is for user Player. All other positions clockwise
 #
 # Cards on table positions
 # Card's top left conner area w = 27, h = 54
@@ -17,118 +17,136 @@
 width_ref = 850
 height_ref = 615
 
+class Rectangle:
+    def __init__(self, x, y, width, height: int):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+    def to_box(self, ratio: tuple[float, float] = (1.0, 1.0)) -> tuple[float, float, float, float]:
+        return self.x/ratio[0], self.y/ratio[1], (self.x + self.width)/ratio[0], (self.y + self.height)/ratio[1]
+
+class Player:
+    def __init__(self, pos, btn:Rectangle, cards: tuple[Rectangle, Rectangle], back: tuple[Rectangle, Rectangle], bb: Rectangle):
+        self.pos: Rectangle = pos
+        self.btn: Rectangle = btn
+        self.cards: tuple[Rectangle, Rectangle] = cards
+        self.back: tuple[Rectangle, Rectangle] = back
+        self.bb: Rectangle = bb
+
 A = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    ( 365, 431, 120, 150),    # table for 2 players
-    ( 365, 431, 120, 150),    # table for 3 players
-    ( 365, 431, 120, 150),    # table for 4 players
-    ( 365, 431, 120, 150),    # table for 5 players
-    ( 365, 431, 120, 150),    # table for 6 players
-    ( 365, 431, 120, 150),    # table for 7 players
-    ( 365, 431, 120, 150),    # table for 8 players
-    ( 365, 431, 120, 150)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 1 player
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 2 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 3 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 4 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 5 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(362,430,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 6 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 7 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 8 players
+    Player(pos=Rectangle( 365, 431, 120, 150), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 0, 0, 0, 0), Rectangle( 0, 0, 0, 0)), bb= Rectangle(10, 126, 102, 24)),    # table for 9 players
 )
 B = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0, 109, 131),    # table for 2 players
-    (   0,   0, 109, 131),    # table for 3 players
-    (   0,   0, 109, 131),    # table for 4 players
-    (   0,   0, 109, 131),    # table for 5 players
-    (  39, 348, 109, 131),    # table for 6 players
-    ( 114, 370, 109, 131),    # table for 7 players
-    ( 124, 371, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle(  39, 348, 109, 131), btn=Rectangle(181,413,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle( 114, 370, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle( 124, 371, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 C = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0, 109, 131),    # table for 3 players
-    (   0,   0, 109, 131),    # table for 4 players
-    (   0,   0, 109, 131),    # table for 5 players
-    (  65, 101, 109, 131),    # table for 6 players
-    (  38, 166, 109, 131),    # table for 7 players
-    (  14, 216, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle(  65, 101, 109, 131), btn=Rectangle(182,214,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle(  38, 166, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle(  14, 216, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 D = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0,   0,   0),    # table for 3 players
-    (   0,   0, 109, 131),    # table for 4 players
-    (   0,   0, 109, 131),    # table for 5 players
-    ( 371,  41, 109, 131),    # table for 6 players
-    ( 259,  64, 109, 131),    # table for 7 players
-    ( 144,  74, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle( 371,  41, 109, 131), btn=Rectangle(379,180,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle( 259,  64, 109, 131), btn=Rectangle(  0,  0,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle( 144,  74, 109, 131), btn=Rectangle(  0,  0,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 E = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0,   0,   0),    # table for 3 players
-    (   0,   0,   0,   0),    # table for 4 players
-    (   0,   0, 109, 131),    # table for 5 players
-    ( 676, 101, 109, 131),    # table for 6 players
-    ( 483,  64, 109, 131),    # table for 7 players
-    ( 370,  41, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle( 676, 101, 109, 131), btn=Rectangle(650,214,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle( 483,  64, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle( 370,  41, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 F = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0,   0,   0),    # table for 3 players
-    (   0,   0,   0,   0),    # table for 4 players
-    (   0,   0,   0,   0),    # table for 5 players
-    ( 703, 348, 109, 131),    # table for 6 players
-    ( 704, 166, 109, 131),    # table for 7 players
-    ( 607,  74, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle( 703, 348, 109, 131), btn=Rectangle(651,413,5,5), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle( 704, 166, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle( 607,  74, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 G = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0,   0,   0),    # table for 3 players
-    (   0,   0,   0,   0),    # table for 4 players
-    (   0,   0,   0,   0),    # table for 5 players
-    (   0,   0,   0,   0),    # table for 6 players
-    ( 629, 370, 109, 131),    # table for 7 players
-    ( 728, 216, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle( 629, 370, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle( 728, 216, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 H = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0,   0,   0),    # table for 3 players
-    (   0,   0,   0,   0),    # table for 4 players
-    (   0,   0,   0,   0),    # table for 5 players
-    (   0,   0,   0,   0),    # table for 6 players
-    (   0,   0,   0,   0),    # table for 7 players
-    ( 617, 371, 109, 131),    # table for 8 players
-    (   0,   0, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle( 617, 371, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle(   0,   0, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 I = (
-    (   0,   0,   0,   0),    # table for 0 players
-    (   0,   0,   0,   0),    # table for 1 player
-    (   0,   0,   0,   0),    # table for 2 players
-    (   0,   0,   0,   0),    # table for 3 players
-    (   0,   0,   0,   0),    # table for 4 players
-    (   0,   0,   0,   0),    # table for 5 players
-    (   0,   0,   0,   0),    # table for 6 players
-    (   0,   0,   0,   0),    # table for 7 players
-    (   0,   0,   0,   0),    # table for 8 players
-    ( 683, 371, 109, 131)     # table for 9 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 0 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 1 player
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 2 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 3 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 4 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 5 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 6 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 7 players
+    Player(pos=Rectangle(   0,   0,   0,   0), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 8 players
+    Player(pos=Rectangle( 683, 371, 109, 131), btn=Rectangle(  0,  0,0,0), cards=(Rectangle( 0, 0, 0, 0),Rectangle( 0, 0, 0, 0)), back=(Rectangle( 30, 30, 5, 5), Rectangle( 80, 30, 5, 5)), bb= Rectangle(8, 104, 92, 21)),    # table for 9 players
 )
 
 players = (A, B, C, D, E, F, G, H, I)
 
-cards = (
+table_cards = (
         (251, 257, 22, 22),
         (323, 257, 22, 22),
         (395, 257, 22, 22),
